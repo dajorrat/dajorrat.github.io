@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Diego Jorrat</title>
+<meta name="description" content="Diego Jorrat — experimental and behavioral economist, Universidad de Sevilla. Research, publications, teaching and CV.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  /* Layout: narrow reading column, sticky top nav, sections as a single scroll; list-style publications like a CV */
+  --ink: #17212b;
+  --muted: #5a6672;
+  --paper: #fbfbf9;
+  --rule: #dde1e4;
+  --accent: #1d4f73;
+  --accent-soft: #e8eff5;
+  --font-display: "Newsreader", Georgia, "Times New Roman", serif;
+  --font-body: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ink: #e6eaee; --muted: #9aa6b2; --paper: #12171c; --rule: #2a333c;
+    --accent: #8cbbe0; --accent-soft: #1b2833; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --ink: #e6eaee; --muted: #9aa6b2; --paper: #12171c; --rule: #2a333c;
+  --accent: #8cbbe0; --accent-soft: #1b2833; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  margin: 0; background: var(--paper); color: var(--ink);
+  font-family: var(--font-body); font-size: 16px; line-height: 1.6;
+}
+a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+a:hover { text-decoration-thickness: 2px; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+.wrap { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+
+/* Nav */
+header.nav {
+  position: sticky; top: 0; z-index: 10; background: var(--paper);
+  border-bottom: 1px solid var(--rule);
+}
+header.nav .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 56px; }
+header.nav .brand { font-family: var(--font-display); font-size: 20px; font-weight: 600; color: var(--ink); text-decoration: none; }
+header.nav nav { display: flex; gap: 20px; flex-wrap: wrap; }
+header.nav nav a { color: var(--muted); text-decoration: none; font-size: 14px; font-weight: 500; }
+header.nav nav a:hover { color: var(--accent); }
+@media (max-width: 560px) { header.nav nav { gap: 12px; } header.nav nav a { font-size: 13px; } header.nav .brand { display: none; } }
+
+/* Intro */
+.intro { display: grid; grid-template-columns: 168px 1fr; gap: 36px; padding: 56px 0 40px; align-items: start; }
+.portrait {
+  width: 168px; height: 200px; border-radius: 6px; background: var(--accent-soft);
+  display: grid; place-items: center; color: var(--accent);
+  font-family: var(--font-display); font-size: 48px; font-weight: 500; overflow: hidden;
+}
+.portrait img { width: 100%; height: 100%; object-fit: cover; }
+h1 { font-family: var(--font-display); font-weight: 500; font-size: 44px; line-height: 1.1; margin: 0 0 8px; text-wrap: balance; }
+.role { color: var(--muted); margin: 0 0 20px; font-size: 15px; }
+.role strong { color: var(--ink); font-weight: 500; }
+.bio p { margin: 0 0 12px; max-width: 64ch; }
+.links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+.links a {
+  font-size: 14px; font-weight: 500; text-decoration: none; padding: 6px 12px;
+  border: 1px solid var(--rule); border-radius: 4px; color: var(--ink);
+}
+.links a.primary { background: var(--accent); border-color: var(--accent); color: var(--paper); }
+.links a:hover { border-color: var(--accent); }
+@media (max-width: 640px) {
+  .intro { grid-template-columns: 1fr; gap: 20px; padding-top: 36px; }
+  .portrait { width: 120px; height: 140px; font-size: 36px; }
+  h1 { font-size: 36px; }
+}
+
+/* Sections */
+section { padding: 40px 0; border-top: 1px solid var(--rule); scroll-margin-top: 64px; }
+h2 { font-family: var(--font-display); font-weight: 500; font-size: 28px; margin: 0 0 24px; }
+h3 { font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 32px 0 12px; }
+h3:first-of-type { margin-top: 0; }
+.interests { margin-top: 16px !important; display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.interests li { background: var(--accent-soft); color: var(--accent); font-size: 13px; font-weight: 500; padding: 4px 10px; border-radius: 3px; }
+
+/* Paper lists */
+ol.papers { list-style: none; margin: 0; padding: 0; display: grid; gap: 18px; }
+ol.papers li { display: grid; grid-template-columns: 52px 1fr; gap: 12px; }
+.yr { color: var(--muted); font-variant-numeric: tabular-nums; font-size: 14px; padding-top: 2px; }
+.title { font-family: var(--font-display); font-size: 19px; line-height: 1.35; font-weight: 500; }
+.title a { color: var(--ink); text-decoration: none; }
+.title a:hover { color: var(--accent); text-decoration: underline; }
+.meta { font-size: 14px; color: var(--muted); }
+.meta em { color: var(--ink); font-style: italic; }
+.tag { display: inline-block; font-size: 11px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--accent); border: 1px solid var(--accent); border-radius: 3px; padding: 0 5px; margin-left: 6px; vertical-align: 2px; }
+.abstract { font-size: 14px; color: var(--muted); margin-top: 4px; max-width: 64ch; }
+@media (max-width: 480px) { ol.papers li { grid-template-columns: 1fr; gap: 0; } }
+
+/* Teaching & two-column lists */
+dl.rows { display: grid; grid-template-columns: 160px 1fr; gap: 10px 20px; margin: 0; }
+dl.rows dt { color: var(--muted); font-size: 14px; font-variant-numeric: tabular-nums; }
+dl.rows dd { margin: 0; }
+@media (max-width: 560px) { dl.rows { grid-template-columns: 1fr; gap: 2px; } dl.rows dd { margin-bottom: 10px; } }
+
+.contact p { margin: 0 0 6px; }
+/* Featured research: public goods simulation + estimated surface */
+.feature { padding: 0 0 40px; }
+.feature .panels { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.feature figure { margin: 0; border: 1px solid var(--rule); border-radius: 6px; padding: 12px; background: var(--paper); }
+.feature figcaption { flex-wrap: wrap; font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; display: flex; justify-content: space-between; gap: 8px; }
+.feature figcaption span:last-child { text-transform: none; letter-spacing: 0; font-weight: 500; color: var(--ink); font-variant-numeric: tabular-nums; }
+.feature canvas { display: block; width: 100%; height: 260px; touch-action: none; }
+#surf { cursor: grab; } #surf:active { cursor: grabbing; }
+.feature p.cap { font-size: 13px; color: var(--muted); margin: 10px 0 0; max-width: 80ch; }
+@media (max-width: 720px) { .feature .panels { grid-template-columns: 1fr; } .feature canvas { height: 230px; } }
+footer { border-top: 1px solid var(--rule); padding: 24px 0 40px; color: var(--muted); font-size: 13px; }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="#top">Diego Jorrat</a>
+    <nav aria-label="Sections">
+      <a href="#publications">Publications</a>
+      <a href="#working-papers">Working papers</a>
+      <a href="#projects">Projects</a>
+      <a href="#teaching">Teaching</a>
+      <a href="#experience">Experience</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap" id="top">
+
+  <div class="intro">
+    <!-- To add a photo: put photo.jpg in the repository and replace "DJ" with <img src="photo.jpg" alt="Diego Jorrat"> -->
+    <div class="portrait"><img src="photo.jpg" alt="Diego Jorrat" width="168" height="200"></div>
+    <div>
+      <h1>Diego Jorrat</h1>
+      <p class="role">
+        <strong>Assistant Professor</strong>, Department of Applied Economics I, Universidad de Sevilla<br>
+        Researcher, <a href="https://loyolabehlab.org/">Loyola Behavioral Lab</a> ·
+        Data Editor, <a href="https://www.sciencedirect.com/journal/journal-of-behavioral-and-experimental-economics"><em>Journal of Behavioral and Experimental Economics</em></a>
+      </p>
+      <div class="bio">
+        <p>I am an experimental and behavioral economist. I run experiments in the lab, online and in the field to study how people decide when outcomes depend on others, and how incentives, information and uncertainty shape those decisions. Much of my work measures economic preferences and strategic reasoning in schools and in development settings, in Spain, Honduras and Nigeria.</p>
+        <p>I hold a Ph.D. in Data Science from Universidad Loyola Andalucía (2021) and an M.Sc. in Economics from Universidad de San Andrés. Before my doctorate I directed the Impact Evaluation Unit of the Buenos Aires City Government.</p>
+      </div>
+      <ul class="interests" aria-label="Research interests">
+        <li>Experimental economics</li>
+        <li>Behavioral economics</li>
+        <li>Coordination and cooperation</li>
+        <li>Incentives and work performance</li>
+        <li>Measuring preferences and beliefs</li>
+        <li>Field experiments and RCTs</li>
+        <li>Policy evaluation</li>
+      </ul>
+      <div class="links">
+        <a class="primary" href="cv.pdf">CV (PDF)</a>
+        <a href="https://scholar.google.es/citations?user=dKI4Z3QAAAAJ&amp;hl=en">Google Scholar</a>
+        <a href="https://orcid.org/0000-0002-5038-3877">ORCID</a>
+        <a href="https://www.linkedin.com/in/diego-a-jorrat-a9231339/">LinkedIn</a>
+        <a href="https://twitter.com/dajorrat">X / Twitter</a>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="feature" aria-labelledby="feat-h">
+    <div class="panels">
+      <figure>
+        <figcaption><span id="feat-h">Public goods game</span><span id="pgshare">&nbsp;</span></figcaption>
+        <canvas id="pg" role="img" aria-label="Simulated groups of five playing a threshold public goods game"></canvas>
+      </figure>
+      <figure>
+        <figcaption><span>Predicted contribution (€)</span><span id="surfread">Drag to rotate</span></figcaption>
+        <canvas id="surf" role="img" aria-label="Three-dimensional surface of predicted contribution as a function of expected contribution and belief dispersion"></canvas>
+      </figure>
+    </div>
+    <p class="cap">People contribute more when they expect others to contribute (µ) and when they are more uncertain about what others will do (σ), but uncertainty matters less when expectations are high. Data from a representative sample of 1,500 Spanish adults (<a href="#working-papers">Strategic uncertainty in collective action problems</a>). The surface is the linear prediction from µ, σ and their interaction; the circles are observed average contributions for groups of participants with similar beliefs (larger circles, more people), with a line to the surface. On the left, simulated groups of five play the game with a 10 € threshold: each agent reads its group mates' last contributions, forms µ and σ, and contributes according to that response plus individual heterogeneity, calibrated to the observed mean of 2.72 €. Darker nodes contribute more; a group's outline turns blue when it reaches the threshold. </p>
+  </div>
+
+  <section id="publications" aria-labelledby="pubs-h">
+    <h2 id="pubs-h">Publications</h2>
+    <p class="meta" style="margin:-12px 0 24px">Quartiles from Clarivate Journal Citation Reports (JCR), best category.</p>
+    <ol class="papers">
+      <li><span class="yr">2026</span><div>
+        <div class="title"><a href="https://doi.org/10.1093/pnasnexus/pgag370">Developmental asymmetries in equilibrium selection</a></div>
+        <div class="meta">with P. Brañas-Garza and P. Lomas · <em>PNAS Nexus</em> <span class="tag" title="Journal Citation Reports quartile">JCR Q1</span></div></div></li>
+      <li><span class="yr">2026</span><div>
+        <div class="title"><a href="https://doi.org/10.1007/s00182-026-00995-1">Paying £1 (£5) or nothing in dictator games: Unexpected differences</a></div>
+        <div class="meta">with P. Brañas-Garza and A. M. Espín · <em>International Journal of Game Theory</em> 55, 27 <span class="tag" title="Journal Citation Reports quartile">JCR Q4</span></div></div></li>
+      <li><span class="yr">2025</span><div>
+        <div class="title"><a href="https://doi.org/10.1016/j.socec.2025.102396">The baking of preferences throughout the high school</a></div>
+        <div class="meta">with A. Alfonso, P. Brañas-Garza, B. Prissé and M. J. Vázquez-De Francisco · <em>Journal of Behavioral and Experimental Economics</em> 118 <span class="tag" title="Journal Citation Reports quartile">JCR Q2</span></div></div></li>
+      <li><span class="yr">2025</span><div>
+        <div class="title"><a href="https://doi.org/10.4438/1988-592X-RE-2025-409-685">Repetition undermines social inclusion at school</a></div>
+        <div class="meta">with P. Brañas-Garza · <em>Revista de Educación</em> 409 <span class="tag" title="Journal Citation Reports quartile">JCR Q2</span></div></div></li>
+      <li><span class="yr">2025</span><div>
+        <div class="title"><a href="https://doi.org/10.60758/laer.v34i.327">Visual continuous time preferences: Field experiment in Honduras</a></div>
+        <div class="meta">with B. Prissé · <em>Latin American Economic Review</em> 34 <span class="tag" title="Journal Citation Reports quartile">JCR Q4</span></div></div></li>
+      <li><span class="yr">2025</span><div>
+        <div class="title"><a href="https://doi.org/10.1038/s41597-024-04298-6">Economic preferences and cognitive abilities among teenagers in Spain</a></div>
+        <div class="meta">with M. Vasco et al. · <em>Scientific Data</em> 12 <span class="tag" title="Journal Citation Reports quartile">JCR Q1</span></div></div></li>
+      <li><span class="yr">2023</span><div>
+        <div class="title"><a href="https://doi.org/10.1016/j.jue.2023.103558">How do subnational governments react to shocks to different revenue sources? Evidence from hydrocarbon-producing provinces in Argentina</a></div>
+        <div class="meta">with M. Besfamille, O. Manzano, B. F. Quiroga and P. Sanguinetti · <em>Journal of Urban Economics</em> 136 <span class="tag" title="Journal Citation Reports quartile">JCR Q1</span></div></div></li>
+      <li><span class="yr">2023</span><div>
+        <div class="title"><a href="https://doi.org/10.1007/s10683-022-09776-5">Paid and hypothetical time preferences are the same: Lab, field and online evidence</a></div>
+        <div class="meta">with P. Brañas-Garza, A. M. Espín and Á. Sánchez · <em>Experimental Economics</em> 26 <span class="tag" title="Journal Citation Reports quartile">JCR Q2</span></div></div></li>
+      <li><span class="yr">2023</span><div>
+        <div class="title"><a href="https://doi.org/10.1016/j.socec.2023.102048">The adventure of running experiments with teenagers</a></div>
+        <div class="meta">with A. Alfonso, P. Brañas-Garza, P. Lomas, B. Prissé, M. Vasco and M. J. Vázquez-De Francisco · <em>Journal of Behavioral and Experimental Economics</em> 106 <span class="tag" title="Journal Citation Reports quartile">JCR Q2</span></div></div></li>
+      <li><span class="yr">2023</span><div>
+        <div class="title"><a href="https://doi.org/10.1186/s13690-023-01030-5">Parents' knowledge and predictions about the age of menarche: Experimental evidence from Honduras</a></div>
+        <div class="meta">with M. Accerenzi and P. Brañas-Garza · <em>Archives of Public Health</em> 81 <span class="tag" title="Journal Citation Reports quartile">JCR Q2</span></div></div></li>
+      <li><span class="yr">2022</span><div>
+        <div class="title"><a href="https://doi.org/10.1098/rsos.210919">Exposure to the COVID-19 pandemic environment and generosity</a></div>
+        <div class="meta">with P. Brañas-Garza, A. Alfonso, A. M. Espín, T. García-Muñoz and J. Kovářík · <em>Royal Society Open Science</em> 9 <span class="tag" title="Journal Citation Reports quartile">JCR Q2</span></div></div></li>
+      <li><span class="yr">2022</span><div>
+        <div class="title"><a href="https://doi.org/10.1016/j.socec.2022.101910">Lab vs online experiments: No differences</a></div>
+        <div class="meta">with B. Prissé · <em>Journal of Behavioral and Experimental Economics</em> 100 <span class="tag" title="Journal Citation Reports quartile">JCR Q2</span></div></div></li>
+      <li><span class="yr">2021</span><div>
+        <div class="title"><a href="https://doi.org/10.1017/S1930297500008433">To pay or not to pay: Measuring risk preferences in lab and field</a></div>
+        <div class="meta">with P. Brañas-Garza, L. Estepa-Mohedano, V. Orozco and E. Rascón-Ramírez · <em>Judgment and Decision Making</em> 16 <span class="tag" title="Journal Citation Reports quartile">JCR Q2</span></div></div></li>
+      <li><span class="yr">2021</span><div>
+        <div class="title"><a href="https://doi.org/10.1371/journal.pone.0255668">Hyper-altruistic behavior vanishes with high stakes</a></div>
+        <div class="meta">with P. Brañas-Garza, J. Kovářík and M. C. López · <em>PLoS ONE</em> 16 <span class="tag" title="Journal Citation Reports quartile">JCR Q2</span></div></div></li>
+      <li><span class="yr">2021</span><div>
+        <div class="title"><a href="https://doi.org/10.1016/j.socec.2020.101644">Recruiting experimental subjects using WhatsApp</a></div>
+        <div class="meta">single-authored · <em>Journal of Behavioral and Experimental Economics</em> 90 <span class="tag" title="Journal Citation Reports quartile">JCR Q2</span></div></div></li>
+      <li><span class="yr">2019</span><div>
+        <div class="title">Midiendo la paciencia</div>
+        <div class="meta">with P. Brañas-Garza and A. M. Espín · <em>Economía Industrial</em> 413</div></div></li>
+    </ol>
+  </section>
+
+  <section id="working-papers" aria-labelledby="wp-h">
+    <h2 id="wp-h">Working papers</h2>
+    <ol class="papers">
+      <li>
+        <span class="yr">2026</span>
+        <div>
+          <div class="title"><a href="https://arxiv.org/abs/2209.11079">Strategic uncertainty in collective action problems</a></div>
+          <div class="meta">with P. Brañas-Garza, A. Cabrales and M. P. Espinosa</div>
+          <div class="abstract">In a public goods game with a representative sample of 1,500 Spanish adults, ambiguity about the game's parameters does not affect contributions. Strategic uncertainty about others' behavior does.</div>
+        </div>
+      </li>
+      <li>
+        <span class="yr">2026</span>
+        <div>
+          <div class="title">Time Blocking, Goal Setting, and Work Performance</div>
+          <div class="meta">with M. Drouvelis, J. Gómez-Miñambres and P. Kujal</div>
+          <div class="abstract">Dividing work into short blocks raises attempts by about 30% but lowers accuracy. Non-binding goals help only high-ability workers.</div>
+        </div>
+      </li>
+      <li>
+        <span class="yr">2026</span>
+        <div>
+          <div class="title">Coordination with and without incentives</div>
+          <div class="meta">with P. Brañas-Garza and P. Lomas</div>
+          <div class="abstract">Across two studies, paid and hypothetical payments yield equivalent coordination rates and reasoning in payoff- and risk-dominance games.</div>
+        </div>
+      </li>
+      <li>
+        <span class="yr">2026</span>
+        <div>
+          <div class="title"><a href="https://arxiv.org/abs/2603.19390">Did you know that Economics is not only about money? The effect of popularisation talks on high school students' interest in the discipline</a></div>
+          <div class="meta">with L. Padilla-Angulo, J. I. Antón and J. Sierra</div>
+        </div>
+      </li>
+      <li>
+        <span class="yr">2026</span>
+        <div>
+          <div class="title"><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5128523">Future time reference and time preferences on the individual level</a></div>
+          <div class="meta">with T. Keller and H. J. Kiss</div>
+        </div>
+      </li>
+      <li>
+        <span class="yr">2026</span>
+        <div>
+          <div class="title">Eliciting Probabilities in the Field: Beads versus Sliders</div>
+          <div class="meta">with L. Estepa-Mohedano, V. Orozco and E. Rascón-Ramírez</div>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <section id="projects" aria-labelledby="proj-h">
+    <h2 id="proj-h">Research projects</h2>
+    <p style="max-width:64ch;margin:0 0 24px">Research team member in competitive projects funded by the European Commission and the Spanish State Research Agency.</p>
+    <dl class="rows">
+      <dt>2026–2028</dt>
+      <dd><strong>PBiS – Predicting Bullying in Schools.</strong> Proof of Concept Projects, Spanish State Research Agency (PDC2025-165775-I00). PI: P. Brañas-Garza.</dd>
+      <dt>2025–2028</dt>
+      <dd><strong>ENBE – Education, Networks and Behavioral Economics.</strong> Knowledge Generation Projects, Spanish State Research Agency (PID2024-156629NB-I00). PIs: A. Cabrales and P. Brañas-Garza.</dd>
+      <dt>2023–2027</dt>
+      <dd><strong>SUSTAINWELL – Sustainable Welfare: Rethinking the Roles of Family, Market and State.</strong> Horizon Europe, European Commission (GA 101095175). Coordinated by Universitat de Barcelona.</dd>
+      <dt>2022–2025</dt>
+      <dd><strong>ENCON – Environmental Consciousness: A Behavioral Rebound Effect.</strong> EU-LAC Joint Call on Science, Technology and Innovation (EU-LAC-2022-166). PI: P. Brañas-Garza.</dd>
+      <dt>2022–2024</dt>
+      <dd><strong>DENT – Decisions, Education, Networks and Adolescents.</strong> Knowledge Generation Projects, Spanish State Research Agency (PID2021-126892NB-I00). PI: P. Brañas-Garza.</dd>
+      <dt>2022–2024</dt>
+      <dd><strong>Between and Within (Science-based Advice).</strong> Proof of Concept Projects, Spanish State Research Agency (PDC2022-133230-I00). PI: P. Brañas-Garza.</dd>
+      <dt>2022–2024</dt>
+      <dd><strong>Analytical capacity and cognitive skills for a more inclusive education (El Salvador).</strong> Andalusian Agency for International Development Cooperation, AACID (2021UI004). PI: P. Brañas-Garza.</dd>
+    </dl>
+  </section>
+
+  <section id="teaching" aria-labelledby="teach-h">
+    <h2 id="teach-h">Teaching</h2>
+    <p style="max-width:64ch;margin:0 0 24px">I have taught more than 1,200 hours at the undergraduate, master's and doctoral levels, in English and Spanish, mostly in business administration programs.</p>
+    <dl class="rows">
+      <dt>Universidad de Sevilla<br>2025–</dt>
+      <dd>Statistics (undergraduate business programs)</dd>
+      <dt>Universidad Loyola Andalucía<br>2019–2025</dt>
+      <dd>Econometrics (in English) · Macroeconomics · Economics II – Markets · Economic Growth and Development · Economic Policy</dd>
+      <dt>Doctoral and master's</dt>
+      <dd>Experimental Economics · Behavioral Economics · Experimental Data Analysis (Ph.D. in Data Science, Loyola) · Research Methods workshop (M.Sc. Research Methods in Social Sciences)</dd>
+      <dt>Visiting</dt>
+      <dd>Social Evaluation of Development Projects, M.Sc. Economics, Universidad Nacional de Tucumán (2024)</dd>
+    </dl>
+  </section>
+
+  <section id="experience" aria-labelledby="exp-h">
+    <h2 id="exp-h">Previous experience</h2>
+    <dl class="rows">
+      <dt>2016–2018</dt>
+      <dd><strong>Director, Impact Evaluation Unit, Buenos Aires City Government.</strong> Designed randomized and quasi-experimental evaluations and behavioral interventions to support evidence-based policy.</dd>
+      <dt>2013–2016</dt>
+      <dd><strong>Researcher, Research Unit, CAF – Development Bank of Latin America and the Caribbean.</strong> Designed the CAF Survey (2013–2015) and two impact evaluations, on police training in the use of force and on crime information.</dd>
+      <dt>2011–2013</dt>
+      <dd><strong>Analyst, CIPPEC.</strong> Designed and implemented randomized trials testing nudges on municipal tax compliance in three local governments, funded by the Inter-American Development Bank.</dd>
+    </dl>
+  </section>
+
+  <section id="consulting" aria-labelledby="cons-h">
+    <h2 id="cons-h">Consulting and knowledge transfer</h2>
+    <dl class="rows">
+      <dt>2022–2023</dt>
+      <dd><strong>Impact evaluation of the "Málaga Puerto Verde" project</strong>, pilot phase of the PAMEx Local Invest Finance Facility. Spanish Agency for International Development Cooperation (AECID).</dd>
+      <dt>2020–2021</dt>
+      <dd><strong>Results and impact measurement mechanism of the Program for the Reduction of Poverty and Economic and Social Exclusion (PRPEES).</strong> Central American Bank for Economic Integration (CABEI). Consultancy coordinator.</dd>
+      <dt>2019–2020</dt>
+      <dd><strong>Quantitative impact evaluation of the Incorpora Jóvenes program.</strong> Fundación "la Caixa".</dd>
+      <dt>2018–2019</dt>
+      <dd><strong>Experimental evaluation of entertainment-education interventions to change social norms and improve educational outcomes in Northern Nigeria</strong> (movies, mobile gaming and digital books; pilot phase). World Bank. PI: E. Rascón-Ramírez.</dd>
+      <dt>2010</dt>
+      <dd><strong>The political economy of education: a framework for the feasibility of reform.</strong> Short-term consultant, World Bank.</dd>
+      <dt>Outreach</dt>
+      <dd>Popularisation talks on what Economics is and what economists do, in secondary schools (teaching innovation project, Universidad Loyola Andalucía, 2024–2025).</dd>
+    </dl>
+  </section>
+
+  <section id="service" aria-labelledby="serv-h">
+    <h2 id="serv-h">Editorial service</h2>
+    <dl class="rows">
+      <dt>2024–</dt>
+      <dd>Data Editor, <em>Journal of Behavioral and Experimental Economics</em>. Reproducibility checks of data and code for more than 300 manuscripts to date.</dd>
+      <dt>Referee</dt>
+      <dd><em>Journal of Economic Theory</em>, <em>Journal of Political Economy: Microeconomics</em>, <em>Experimental Economics</em>, <em>Journal of Economic Behavior &amp; Organization</em>, <em>Journal of Economic Psychology</em>, <em>Health Economics</em>, <em>Behavioural Public Policy</em>, among others</dd>
+    </dl>
+  </section>
+
+  <section id="contact" class="contact" aria-labelledby="contact-h">
+    <h2 id="contact-h">Contact</h2>
+    <p><a href="mailto:dajorrat@gmail.com">dajorrat@gmail.com</a></p>
+    <p>Department of Applied Economics I, Facultad de Ciencias Económicas y Empresariales<br>
+    Universidad de Sevilla, Avda. Ramón y Cajal 1, 41018 Sevilla, Spain</p>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">Last updated November 2026</div>
+</footer>
+
+
+<script>
+(function () {
+  var pg = document.getElementById('pg'), sf = document.getElementById('surf');
+  if (!pg || !sf || !pg.getContext) return;
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // Linear prediction from the paper's Figure 3D: c = 0.878 + 0.736 mu + 0.947 sigma - 0.208 mu*sigma, bounded to [0, 5]
+  function f(mu, sg) { return Math.max(0, Math.min(5, 0.8784 + 0.7358 * mu + 0.9473 * sg - 0.2082 * mu * sg)); }
+  // Observed average contribution by cell of mu and sigma (rounded to 0.5), cells with at least 10 participants: [mu, sigma, mean, n]
+  var CELLS = [[0.0, 0.0, 0.84, 38], [1.0, 0.0, 1.7, 188], [1.0, 0.5, 2.73, 60], [1.0, 1.0, 2.07, 43], [1.5, 0.5, 2.28, 64], [1.5, 1.5, 2.92, 24], [2.0, 0.0, 2.16, 368], [2.0, 0.5, 2.59, 74], [2.0, 1.0, 2.62, 105], [2.0, 1.5, 2.76, 21], [2.5, 0.5, 2.77, 48], [2.5, 1.5, 3.69, 32], [3.0, 0.0, 3.12, 66], [3.0, 0.5, 2.95, 21], [3.0, 1.0, 3.42, 40], [3.0, 1.5, 3.83, 18], [3.5, 0.5, 4.71, 14], [3.5, 1.5, 3.95, 22], [4.0, 0.0, 4.05, 19], [4.0, 1.0, 3.8, 30], [5.0, 0.0, 4.61, 127]];
+  function css(v, d) { var x = getComputedStyle(document.documentElement).getPropertyValue(v).trim(); return x || d; }
+  function rgb(h) { var n = parseInt(h.slice(1), 16); return [n >> 16, (n >> 8) & 255, n & 255]; }
+  function mix(a, b, t) { return 'rgb(' + [0, 1, 2].map(function (i) { return Math.round(a[i] + (b[i] - a[i]) * t); }).join(',') + ')'; }
+  var seed = 11; function rnd() { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; }
+  function gauss() { var u = Math.random() || 1e-9, v = Math.random(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(6.2832 * v); }
+
+  // ---------- agents ----------
+  var G = 12, agents = [];
+  for (var g = 0; g < G; g++) for (var k = 0; k < 5; k++) agents.push({ g: g, k: k, c: rnd() * 5, show: 0, mu: 2.5, sg: 1, al: -0.5 + 0.9 * Math.sqrt(-2 * Math.log(rnd() || 1e-9)) * Math.cos(6.2832 * rnd()) });
+  function step(n) {
+    for (var t = 0; t < n; t++) {
+      var a = agents[Math.floor(Math.random() * agents.length)], o = [];
+      for (var j = 0; j < 5; j++) if (j !== a.k) o.push(Math.max(0, Math.min(5, agents[a.g * 5 + j].c + gauss() * 0.7)));
+      var m = (o[0] + o[1] + o[2] + o[3]) / 4, v = 0;
+      for (j = 0; j < 4; j++) v += (o[j] - m) * (o[j] - m);
+      a.mu = m; a.sg = Math.sqrt(v / 3);
+      a.c = Math.max(0, Math.min(5, f(a.mu, a.sg) + a.al + gauss() * 0.9));
+      if (Math.random() < 0.01) a.c = Math.random() * 5;
+    }
+  }
+
+  // ---------- canvas helpers ----------
+  function fit(cv) { var r = cv.getBoundingClientRect(), d = window.devicePixelRatio || 1; cv.width = r.width * d; cv.height = r.height * d; var c = cv.getContext('2d'); c.setTransform(d, 0, 0, d, 0, 0); return { c: c, w: r.width, h: r.height }; }
+  var P, S;
+  function sizeAll() { P = fit(pg); S = fit(sf); }
+
+  // ---------- left: groups ----------
+  function drawGroups() {
+    var c = P.c, w = P.w, h = P.h, acc = rgb(css('--accent', '#1d4f73')), pap = rgb(css('--paper', '#fbfbf9')), rule = css('--rule', '#dde1e4'), ink = css('--ink', '#17212b');
+    c.clearRect(0, 0, w, h);
+    var cols = w > 380 ? 4 : 3, rows = Math.ceil(G / cols), cw = w / cols, ch = h / rows, R = Math.min(cw, ch) * 0.32, met = 0;
+    for (var g = 0; g < G; g++) {
+      var cx = (g % cols + 0.5) * cw, cy = (Math.floor(g / cols) + 0.5) * ch, pts = [], tot = 0;
+      for (var k = 0; k < 5; k++) { var an = -Math.PI / 2 + k * 2 * Math.PI / 5, ag = agents[g * 5 + k]; ag.show += (ag.c - ag.show) * (reduce ? 1 : 0.12); tot += ag.c; pts.push([cx + R * Math.cos(an), cy + R * Math.sin(an), ag]); }
+      var ok = tot >= 10; if (ok) met++;
+      c.lineWidth = ok ? 1.6 : 1; c.strokeStyle = ok ? mix(acc, acc, 0) : rule;
+      c.beginPath(); for (k = 0; k < 5; k++) c[k ? 'lineTo' : 'moveTo'](pts[k][0], pts[k][1]); c.closePath(); c.stroke();
+      c.globalAlpha = 0.5; c.lineWidth = 1; c.strokeStyle = rule; c.beginPath();
+      for (k = 0; k < 5; k++) { c.moveTo(pts[k][0], pts[k][1]); c.lineTo(pts[(k + 2) % 5][0], pts[(k + 2) % 5][1]); }
+      c.stroke(); c.globalAlpha = 1;
+      for (k = 0; k < 5; k++) { var t = pts[k][2].show / 5; c.fillStyle = mix(pap, acc, 0.15 + 0.85 * t); c.strokeStyle = mix(pap, acc, 0.6); c.beginPath(); c.arc(pts[k][0], pts[k][1], 3.5 + 3 * t, 0, 6.2832); c.fill(); c.stroke(); }
+      c.fillStyle = ink; c.globalAlpha = 0.6; c.font = '11px ' + css('--font-body', 'sans-serif'); c.textAlign = 'center';
+      c.fillText(tot.toFixed(1) + ' €', cx, cy + 4); c.globalAlpha = 1;
+    }
+    var avg = 0; for (var i = 0; i < agents.length; i++) avg += agents[i].c;
+    document.getElementById('pgshare').textContent = met + '/' + G + ' groups reach 10 € · mean ' + (avg / agents.length).toFixed(1) + ' €';
+  }
+
+  // ---------- right: 3D surface ----------
+  var yaw = -0.75, pitch = 0.5, drag = null;
+  function proj(mu, sg, z) {
+    var x = mu / 5 * 2 - 1, y = sg / 3 * 2 - 1, zz = z / 5 * 1.4 - 0.7;
+    var cy = Math.cos(yaw), sy = Math.sin(yaw), x1 = x * cy - y * sy, y1 = x * sy + y * cy;
+    var cp = Math.cos(pitch), sp = Math.sin(pitch), y2 = y1 * cp - zz * sp, z2 = y1 * sp + zz * cp;
+    var sc = Math.min(S.w, S.h) * 0.36;
+    return [S.w / 2 + x1 * sc, S.h / 2 + 10 - z2 * sc, y2];
+  }
+  function drawSurface() {
+    var c = S.c, acc = rgb(css('--accent', '#1d4f73')), pap = rgb(css('--paper', '#fbfbf9')), rule = css('--rule', '#dde1e4'), mut = css('--muted', '#5a6672');
+    c.clearRect(0, 0, S.w, S.h);
+    var font = '11px ' + css('--font-body', 'sans-serif'); c.font = font;
+    // floor grid
+    c.strokeStyle = rule; c.lineWidth = 1;
+    for (var i = 0; i <= 5; i++) { var a = proj(i, 0, 0), b = proj(i, 3, 0); c.beginPath(); c.moveTo(a[0], a[1]); c.lineTo(b[0], b[1]); c.stroke(); }
+    for (i = 0; i <= 6; i++) { a = proj(0, i / 2, 0); b = proj(5, i / 2, 0); c.beginPath(); c.moveTo(a[0], a[1]); c.lineTo(b[0], b[1]); c.stroke(); }
+    // vertical axis
+    a = proj(0, 3, 0); b = proj(0, 3, 5); c.beginPath(); c.moveTo(a[0], a[1]); c.lineTo(b[0], b[1]); c.stroke();
+    // quads
+    var N = 18, q = [];
+    for (i = 0; i < N; i++) for (var j = 0; j < N; j++) {
+      var m0 = i / N * 5, m1 = (i + 1) / N * 5, s0 = j / N * 3, s1 = (j + 1) / N * 3;
+      var p = [proj(m0, s0, f(m0, s0)), proj(m1, s0, f(m1, s0)), proj(m1, s1, f(m1, s1)), proj(m0, s1, f(m0, s1))];
+      q.push({ p: p, d: (p[0][2] + p[1][2] + p[2][2] + p[3][2]) / 4, z: f((m0 + m1) / 2, (s0 + s1) / 2) });
+    }
+    q.sort(function (u, v) { return v.d - u.d; });
+    for (i = 0; i < q.length; i++) {
+      var Q = q[i], col = mix(pap, acc, 0.12 + 0.8 * Q.z / 5);
+      c.fillStyle = col; c.strokeStyle = col; c.globalAlpha = 0.92;
+      c.beginPath(); c.moveTo(Q.p[0][0], Q.p[0][1]); for (var k = 1; k < 4; k++) c.lineTo(Q.p[k][0], Q.p[k][1]); c.closePath(); c.fill(); c.stroke();
+    }
+    c.globalAlpha = 1;
+    // observed cell averages
+    var ink = css('--ink', '#17212b');
+    for (i = 0; i < CELLS.length; i++) {
+      var C = CELLS[i], pt = proj(C[0], C[1], C[2]), ps = proj(C[0], C[1], f(C[0], C[1]));
+      c.strokeStyle = ink; c.globalAlpha = 0.5; c.beginPath(); c.moveTo(pt[0], pt[1]); c.lineTo(ps[0], ps[1]); c.stroke();
+      c.globalAlpha = 0.9; c.fillStyle = css('--paper', '#fbfbf9'); c.beginPath(); c.arc(pt[0], pt[1], 2 + Math.sqrt(C[3]) / 4, 0, 6.2832); c.fill();
+      c.lineWidth = 1.5; c.stroke(); c.lineWidth = 1;
+    }
+    c.globalAlpha = 1;
+    // labels
+    c.fillStyle = mut; c.textAlign = 'center';
+    a = proj(2.5, -1.0, 0); c.fillText('µ  expected contribution', a[0], a[1]);
+    a = proj(6.0, 1.5, 0); c.fillText('σ  belief dispersion', a[0], a[1]);
+    for (i = 0; i <= 5; i++) { a = proj(i, -0.15, 0); c.fillText(i, a[0], a[1] + 4); }
+    for (i = 0; i <= 5; i += 1) { a = proj(0, 3, i); c.textAlign = 'right'; c.fillText(i, a[0] - 6, a[1] + 4); }
+  }
+
+  function frame() { drawGroups(); drawSurface(); }
+  var last = 0;
+  function loop(t) { if (t - last > 120) { step(4); last = t; } if (!drag && !reduce) yaw += 0.0015; frame(); requestAnimationFrame(loop); }
+  sf.addEventListener('pointerdown', function (e) { drag = [e.clientX, e.clientY, yaw, pitch]; sf.setPointerCapture(e.pointerId); });
+  sf.addEventListener('pointermove', function (e) {
+    if (!drag) return; yaw = drag[2] + (e.clientX - drag[0]) * 0.01; pitch = Math.max(0.1, Math.min(1.3, drag[3] + (e.clientY - drag[1]) * 0.01)); if (reduce) frame();
+  });
+  sf.addEventListener('pointerup', function () { drag = null; });
+  sf.addEventListener('pointercancel', function () { drag = null; });
+  var rt; window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(function () { sizeAll(); frame(); }, 150); });
+  sizeAll(); step(agents.length * 30); for (var i = 0; i < agents.length; i++) agents[i].show = agents[i].c; frame();
+  if (!reduce) requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>
