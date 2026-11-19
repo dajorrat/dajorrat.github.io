@@ -126,7 +126,8 @@ dl.rows dd { margin: 0; }
 .feature figcaption { flex-wrap: wrap; font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; display: flex; justify-content: space-between; gap: 8px; }
 .feature figcaption span:last-child { text-transform: none; letter-spacing: 0; font-weight: 500; color: var(--ink); font-variant-numeric: tabular-nums; }
 .feature canvas { display: block; width: 100%; height: 260px; touch-action: none; }
-#surf { cursor: grab; } #surf:active { cursor: grabbing; }
+.feature figure { display: flex; flex-direction: column; }
+#surf { cursor: grab; flex: 1 1 260px; height: auto; min-height: 260px; } #surf:active { cursor: grabbing; }
 .feature p.cap { font-size: 13px; color: var(--muted); margin: 10px 0 0; max-width: 80ch; }
 @media (max-width: 720px) { .feature .panels { grid-template-columns: 1fr; } .feature canvas { height: 230px; } }
 .bio p, .feature p.cap { text-align: justify; hyphens: auto; -webkit-hyphens: auto; hyphenate-limit-chars: 9 4 4; text-justify: inter-word; }
@@ -209,11 +210,18 @@ footer { border-top: 1px solid var(--rule); padding: 24px 0 40px; color: var(--m
         </div>
       </figure>
       <figure>
-        <figcaption><span>Predicted contribution (€)</span><span id="surfread">Drag to rotate</span></figcaption>
+        <figcaption><span>Contribution and beliefs</span><span id="surfread">Drag to rotate</span></figcaption>
         <canvas id="surf" role="img" aria-label="Three-dimensional surface of predicted contribution as a function of expected contribution and belief dispersion"></canvas>
+        <div class="pglegend">
+          <p>Before deciding, each participant predicted how much each of the other four members would contribute. µ is the mean of those predictions (what they expect others to put in) and σ is their dispersion (how unsure they are about the others: strategic uncertainty).</p>
+          <ul>
+            <li><span class="scale" aria-hidden="true"></span>Surface: predicted contribution given µ and σ</li>
+            <li><svg class="ring" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="6" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.5"/></svg>Circles: observed average for people with similar beliefs (bigger, more people)</li>
+          </ul>
+        </div>
       </figure>
     </div>
-    <p class="cap">Each participant predicted how much each of the other four group members would contribute. People contribute more when they expect others to contribute more (µ, the mean of their predictions) and when they are more uncertain about what others will do (σ, the dispersion of their predictions, our measure of strategic uncertainty), but uncertainty matters less when expectations are high. Data from a representative sample of 1,500 Spanish adults (<a href="#working-papers">Strategic uncertainty in collective action problems</a>). The surface is the linear prediction from µ, σ and their interaction; the circles are observed average contributions of participants with similar beliefs (larger circles, more people). In the simulation on the left, each member's beliefs are drawn from the data and the contribution follows the estimated relationship plus noise. A new group plays every second.</p>
+    <p class="cap">Contributions rise with what people expect others to give (µ) and with their uncertainty about it (σ), but uncertainty matters less when expectations are high. Data from a representative sample of 1,500 Spanish adults (<a href="#working-papers">Strategic uncertainty in collective action problems</a>). In the simulation, each member's beliefs are drawn from the data and the contribution follows the estimated relationship plus noise; a new group plays every second.</p>
   </div>
 
   <section id="publications" aria-labelledby="pubs-h">
@@ -478,7 +486,7 @@ footer { border-top: 1px solid var(--rule); padding: 24px 0 40px; color: var(--m
     var cy = Math.cos(yaw), sy = Math.sin(yaw), x1 = x * cy - y * sy, y1 = x * sy + y * cy;
     var cp = Math.cos(pitch), sp = Math.sin(pitch), y2 = y1 * cp - zz * sp, z2 = y1 * sp + zz * cp;
     var sc = Math.min(S.w, S.h) * 0.36;
-    return [S.w / 2 + x1 * sc, S.h / 2 - 4 - z2 * sc, y2];
+    return [S.w / 2 + 14 + x1 * sc, S.h / 2 - 4 - z2 * sc, y2];
   }
   function drawSurface() {
     var c = S.c, acc = rgb(css('--accent', '#1d4f73')), pap = rgb(css('--paper', '#fbfbf9')), rule = css('--rule', '#dde1e4'), mut = css('--muted', '#5a6672');
@@ -519,6 +527,7 @@ footer { border-top: 1px solid var(--rule); padding: 24px 0 40px; color: var(--m
     a = proj(6.0, 1.5, 0); c.fillText('σ  belief dispersion', a[0], a[1]);
     for (i = 0; i <= 5; i++) { a = proj(i, -0.15, 0); c.fillText(i, a[0], a[1] + 4); }
     for (i = 0; i <= 5; i += 1) { a = proj(0, 3, i); c.textAlign = 'right'; c.fillText(i, a[0] - 6, a[1] + 4); }
+    c.save(); c.translate(10, S.h / 2 - 10); c.rotate(-Math.PI / 2); c.textAlign = 'center'; c.fillText('Contribution to the PGG (€)', 0, 0); c.restore();
   }
 
   function frame() { drawGroups(); drawSurface(); }
